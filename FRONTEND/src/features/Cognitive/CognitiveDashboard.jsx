@@ -47,9 +47,9 @@ export default function CognitiveDashboard({ userId }) {
         try {
             setMasteryLoading(true);
             const [masteryRes, weakRes, dueRes] = await Promise.all([
-                axios.get(`${API_BASE}/cognitive/mastery/${userId}`).catch(() => ({ data: { data: { concepts: [] } } })),
-                axios.get(`${API_BASE}/cognitive/weak-concepts/${userId}`).catch(() => ({ data: { data: { weak_concepts: [] } } })),
-                axios.get(`${API_BASE}/cognitive/due-for-review/${userId}`).catch(() => ({ data: { data: { due_concepts: [] } } })),
+                axios.get(`${API_BASE}/cognitive/mastery/me`, { headers: authHeaders }).catch(() => ({ data: { data: { concepts: [] } } })),
+                axios.get(`${API_BASE}/cognitive/weak-concepts`, { headers: authHeaders }).catch(() => ({ data: { data: { weak_concepts: [] } } })),
+                axios.get(`${API_BASE}/cognitive/due-for-review`, { headers: authHeaders }).catch(() => ({ data: { data: { due_concepts: [] } } })),
             ]);
 
             const records = masteryRes.data.data?.concepts || [];
