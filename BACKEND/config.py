@@ -49,7 +49,7 @@ class Config:
     RATE_LIMIT_PER_HOUR = 1000
 
     # CORS settings
-    CORS_ORIGINS = ['http://localhost:5000', 'https://codenest.app']
+    CORS_ORIGINS = ['http://localhost:5000', 'https://codenest.app', 'http://localhost:5173', 'https://codenest-olive.vercel.app']
 
     # Logging
     LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
