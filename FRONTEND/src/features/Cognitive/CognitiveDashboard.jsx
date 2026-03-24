@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PracticeModal from '../../components/PracticeModal';
+import useAuthStore from '../../stores/useAuthStore';
 
 const API_BASE = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api';
 
 
-// ─── Main Dashboard ────────────────────────────────────────────────────────
 export default function CognitiveDashboard({ userId }) {
+    const { token } = useAuthStore();
     const [allConcepts, setAllConcepts] = useState([]);
     const [masteryMap, setMasteryMap] = useState({});
     const [weakConcepts, setWeakConcepts] = useState([]);
@@ -43,8 +44,9 @@ export default function CognitiveDashboard({ userId }) {
     };
 
     const loadMasteryData = async () => {
-        if (!userId) return;
+        if (!userId || !token) return;
         try {
+            const authHeaders = { Authorization: `Bearer ${token}` };
             setMasteryLoading(true);
             const [masteryRes, weakRes, dueRes] = await Promise.all([
                 axios.get(`${API_BASE}/cognitive/mastery/me`, { headers: authHeaders }).catch(() => ({ data: { data: { concepts: [] } } })),
