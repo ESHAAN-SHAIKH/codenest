@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import useAuthStore from '../../stores/useAuthStore';
 import PracticeModal from '../../components/PracticeModal';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api';
 
 const CATEGORY_META = {
     fundamentals: { icon: '📚', color: 'from-blue-500 to-blue-600', order: 1, desc: 'The building blocks — variables, types, and basic I/O. Start here!' },
